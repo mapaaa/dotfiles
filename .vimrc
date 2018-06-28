@@ -14,14 +14,19 @@ call plug#begin('~/.vim/plugged')
 
 
 
-" Autocomplete
+" Autocomplete and syntax
 Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
+Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{{
   nnoremap <C-p> :FZF <cr>
+  nnoremap <A-p> :F <cr>
 " }}}
 
 " Moving around easily
@@ -30,6 +35,9 @@ Plug 'raimondi/delimitmate'
 
 " Filetree
 Plug 'scrooloose/nerdtree'
+
+" Commenter
+Plug 'scrooloose/nerdcommenter'
 
 
 " Nice status bar at the bottom
@@ -43,11 +51,11 @@ filetype indent on
 filetype plugin on
 syntax on
 
+set t_Co=256
+set background=dark
 colorscheme tomorrow-night-eighties
 hi Normal guibg=NONE ctermbg=NONE
 highlight LineNr ctermfg=grey
-
-set colorcolumn=100
 set number
 
 set autoread
@@ -57,8 +65,8 @@ set fileformat=unix
 set fileformats=unix,dos
 
 set nowrap
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set smartindent
 set autoindent
@@ -82,12 +90,17 @@ map <leader><leader>l <Plug>(easymotion-bd-jk)
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" YCM for C like language
+nnoremap <C-[> :YcmCompleter GoToDeclaration<CR>
+nnoremap <A-[> :YcmCompleter GoToDefinition<CR>
+
+" Javascript
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YCM Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = '' 
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 
@@ -107,3 +120,13 @@ let g:rg_command = '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
+
+let g:cpp_concepts_highlight = 1
+let g:cpp_simple_highlight = 1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+function! FormatJSON()
+    :%python -m json.tool
+endfunction
