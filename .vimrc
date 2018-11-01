@@ -1,61 +1,54 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Packages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
 
-" Autoinstall vim-plug {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
-endif
-" }}}
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-call plug#begin('~/.vim/plugged')
-
-
+Plugin 'VundleVim/Vundle.vim'
 
 " Autocomplete and syntax
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
-Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 " {{{
   nnoremap <C-p> :FZF <cr>
   nnoremap <A-p> :F <cr>
 " }}}
 
 " Moving around easily
-Plug 'easymotion/vim-easymotion'
-Plug 'raimondi/delimitmate'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'raimondi/delimitmate'
 
 " Filetree
-Plug 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 
 " Commenter
-Plug 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
 
 " Nice status bar at the bottom
-Plug 'vim-airline/vim-airline'
-
-
-call plug#end()
+Plugin 'vim-airline/vim-airline'
+call vundle#end()
 
 filetype on
 filetype indent on
 filetype plugin on
 syntax on
 
+" Colors
 set t_Co=256
 set background=dark
-colorscheme tomorrow-night-eighties
 hi Normal guibg=NONE ctermbg=NONE
 highlight LineNr ctermfg=grey
+
+" enable line numbers
 set number
 
 set autoread
@@ -64,19 +57,27 @@ set fileencoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos
 
+" stop line breaking
 set nowrap
-set tabstop=4
-set shiftwidth=4
+
+" spaces not tabs
+set tabstop=2
+set shiftwidth=2
 set expandtab
+
 set smartindent
 set autoindent
 set hlsearch
 set showmatch
 set cursorline
+
+" hybrid relativenumber
 set relativenumber
-
-set t_Co=256
-
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -91,10 +92,8 @@ map <leader><leader>l <Plug>(easymotion-bd-jk)
 nmap <leader>w :w!<cr>
 
 " YCM for C like language
-nnoremap <C-[> :YcmCompleter GoToDeclaration<CR>
+nnoremap <C-]> :YcmCompleter GoToDeclaration<CR>
 nnoremap <A-[> :YcmCompleter GoToDefinition<CR>
-
-" Javascript
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YCM Settings
@@ -120,13 +119,11 @@ let g:rg_command = '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C++ settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:cpp_concepts_highlight = 1
 let g:cpp_simple_highlight = 1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
-
-function! FormatJSON()
-    :%python -m json.tool
-endfunction
