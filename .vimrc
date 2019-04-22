@@ -45,7 +45,7 @@ syntax on
 " Colors
 set t_Co=256
 set background=dark
-hi Normal guibg=NONE ctermbg=NONE
+hi CursorLine term=bold cterm=NONE ctermbg=236 
 highlight LineNr ctermfg=grey
 
 " enable line numbers
@@ -64,6 +64,9 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
+
+" split settings
+set splitbelow
 
 set smartindent
 set autoindent
@@ -93,7 +96,8 @@ nmap <leader>w :w!<cr>
 
 " YCM for C like language
 nnoremap <C-]> :YcmCompleter GoToDeclaration<CR>
-nnoremap <A-[> :YcmCompleter GoToDefinition<CR>
+nnoremap <A-]> :YcmCompleter GoToDefinition<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " YCM Settings
@@ -105,9 +109,10 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 
 let g:ycm_seed_identifiers_with_syntax = 1
 
-let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 let g:ycm_confirm_extra_conf = 0
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Searching settings
@@ -119,6 +124,7 @@ let g:rg_command = '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " C++ settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -127,3 +133,7 @@ let g:cpp_simple_highlight = 1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
+
+
+
+set autoindent
