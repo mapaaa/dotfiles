@@ -9,6 +9,9 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" Color plugin
+Plugin 'haishanh/night-owl.vim'
+
 " Autocomplete and syntax
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator', {'branch': 'stable'}
@@ -43,10 +46,19 @@ filetype plugin on
 syntax on
 
 " Colors
-set t_Co=256
+syntax enable
 set background=dark
-hi CursorLine term=bold cterm=NONE ctermbg=236 
-highlight LineNr ctermfg=grey
+set t_Co=16
+colorscheme night-owl
+set termguicolors
+hi Normal guibg=NONE ctermbg=NONE
+set colorcolumn=100
+
+let g:nord_italic_comments = 1
+let g:nord_uniform_status_lines = 1
+let g:nord_comment_brightness = 20
+let g:nord_uniform_diff_background = 1
+let g:nord_cursor_line_number_background = 1
 
 " enable line numbers
 set number
@@ -134,6 +146,14 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Latex
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LaTeX (rubber) macro for compiling
+nnoremap <leader>c :w<CR>:!latex --pdf --warn all %<CR>
+
+" View PDF macro; '%:r' is current file's root (base) name.
+nnoremap <leader>v :!mupdf %:r.pdf &<CR><CR>
 
 
 set autoindent
