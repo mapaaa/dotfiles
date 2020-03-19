@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Packages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -10,6 +10,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Color plugin
+Plugin 'arcticicestudio/nord-vim'
 Plugin 'haishanh/night-owl.vim'
 
 " Autocomplete and syntax
@@ -35,9 +36,12 @@ Plugin 'scrooloose/nerdtree'
 " Commenter
 Plugin 'scrooloose/nerdcommenter'
 
-
 " Nice status bar at the bottom
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_theme = 'nord'
+
+
 call vundle#end()
 
 filetype on
@@ -52,7 +56,7 @@ set t_Co=16
 colorscheme night-owl
 set termguicolors
 hi Normal guibg=NONE ctermbg=NONE
-set colorcolumn=100
+
 
 let g:nord_italic_comments = 1
 let g:nord_uniform_status_lines = 1
@@ -77,14 +81,21 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-" split settings
+" split and navigation settings
 set splitbelow
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 set smartindent
 set autoindent
 set hlsearch
 set showmatch
 set cursorline
+
+" latex
+let g:tex_flavor='latex'
 
 " hybrid relativenumber
 set relativenumber
@@ -101,7 +112,6 @@ let g:mapleader = "\<Space>"
 
 map <leader><leader>w <Plug>(easymotion-bd-w)
 map <leader><leader>e <Plug>(easymotion-bd-e)
-map <leader><leader>l <Plug>(easymotion-bd-jk)
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -157,3 +167,7 @@ nnoremap <leader>v :!mupdf %:r.pdf &<CR><CR>
 
 
 set autoindent
+hi Normal guibg=NONE ctermbg=NONE
+set colorcolumn=100
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
