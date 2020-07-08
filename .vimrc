@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Packages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -55,14 +55,41 @@ set background=dark
 set t_Co=16
 colorscheme night-owl
 set termguicolors
-hi Normal guibg=NONE ctermbg=NONE
-
-
+" Nord specific coloring
 let g:nord_italic_comments = 1
 let g:nord_uniform_status_lines = 1
 let g:nord_comment_brightness = 20
 let g:nord_uniform_diff_background = 1
 let g:nord_cursor_line_number_background = 1
+" Night-Owl terminal specific coloring
+if has('nvim')
+  let g:terminal_color_foreground = "#d6deeb"
+  let g:terminal_color_background = "#011627"
+  let g:terminal_color_0 = "#011627"
+  let g:terminal_color_8 = "#44596b"
+  let g:terminal_color_1 = "#f78c6c"
+  let g:terminal_color_9 = "#ef5350"
+  let g:terminal_color_2 = "#addb67"
+  let g:terminal_color_10 = "#22da6e"
+  let g:terminal_color_3 = "#ffcb8b"
+  let g:terminal_color_11 = "#ffeb95"
+  let g:terminal_color_4 = "#82aaff"
+  let g:terminal_color_12 = "#5ca7e4"
+  let g:terminal_color_5 = "#c792ea"
+  let g:terminal_color_13 = "#7e57c2"
+  let g:terminal_color_6 = "#7fdbca"
+  let g:terminal_color_14 = "#ffffff"
+  let g:terminal_color_7 = "#bec5d4"
+  let g:terminal_color_15 = "#ffffff" 
+endif
+if has('terminal')
+  let g:terminal_ansi_colors = ["#011627", "#f78c6c", "#addb67", "#ffcb8b", "#82aaff", "#c792ea", "#7fdbca", "#bec5d4", "#44596b", "#ef5350", "#22da6e", "#ffeb95", "#5ca7e4", "#7e57c2", "#ffffff", "#ffffff"]
+endif
+" Make transparent
+hi Normal guibg=NONE ctermbg=NONE
+hi EndOfBuffer guibg=NONE ctermbg=NONE
+hi NonText guibg=NONE ctermbg=NONE
+hi Terminal guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
 " enable line numbers
 set number
@@ -87,6 +114,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
 
 set smartindent
 set autoindent
@@ -168,6 +196,6 @@ nnoremap <leader>v :!mupdf %:r.pdf &<CR><CR>
 
 set autoindent
 hi Normal guibg=NONE ctermbg=NONE
-set colorcolumn=100
+set colorcolumn=80
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
