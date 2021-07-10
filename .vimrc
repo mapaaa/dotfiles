@@ -44,6 +44,8 @@ let g:airline_theme = 'nord'
 
 call vundle#end()
 
+let g:python_recommended_style = 0
+
 filetype on
 filetype indent on
 filetype plugin on
